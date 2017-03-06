@@ -1,2 +1,2 @@
 # Swift
-A tool to make hardware interfaces
+A tool to make software interfaces for hardware components
