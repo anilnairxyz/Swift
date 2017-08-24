@@ -426,6 +426,8 @@ if (scalar(@memory)) {
 push @int_signal, "address_error";
 if ($id) { push @int_signal, ("$id\_en", "$id\_r_d");
         $int_signal_range{"$id\_r_d"} = "(".($if_size{"DSize"}-1)." downto 0)"; }
+
+
 ############################################################################### 
 # REGIF VHDL GENERATING PORTION of the SCRIPT
 ############################################################################### 
@@ -1047,6 +1049,8 @@ push @regiflines, "\nend rtl;";
 
 #my $modif= join "\n", @modiflines;
 #print ("$modif\n");
+
+
 #------------------------------------------------------------------------------ 
 # Writing to output regiffile
 #------------------------------------------------------------------------------
@@ -1217,7 +1221,7 @@ sub id_reg_gens {
                         }
                 }
 		foreach my $i (keys(%$fields)) {
-                        if ($$fields{$i} =~ m/VCPr/i)          { $j++; if ($j == $num) {$m = " );"} else {$m = ";  "} push @data, "    VCPr             : integer range 0  to ((2**16)-1)$m           -- MCM Bangalore                      ";}
+                        if ($$fields{$i} =~ m/VCPr/i)          { $j++; if ($j == $num) {$m = " );"} else {$m = ";  "} push @data, "    VCPr             : integer range 0  to ((2**16)-1)$m           -- Location name                      ";}
                         elsif ($$fields{$i} =~ m/VCNum/i)      { $j++; if ($j == $num) {$m = " );"} else {$m = ";  "} push @data, "    VCNum            : integer range 0  to ((2**16)-1)$m           -- (sub-module ID-number) => 16 bits  ";}
                         elsif ($$fields{$i} =~ m/VC_Ver_MSB/i) { $j++; if ($j == $num) {$m = " );"} else {$m = ";  "} push @data, "    VC_Ver_MSB       : integer range 0  to ((2**8)-1)$m            -- (sub-module release)   => 8 bits   ";}
                         elsif ($$fields{$i} =~ m/VC_Ver_LSB/i) { $j++; if ($j == $num) {$m = " );"} else {$m = ";  "} push @data, "    VC_Ver_LSB       : integer range 0  to ((2**8)-1)$m            -- (sub-module version)   => 8 bits   ";}
@@ -1235,7 +1239,7 @@ sub id_reg_comp {
         my @data;
 	push @data, "\ncomponent w_common_id_reg_$if_size{\"DSize\"} is";
    	push @data, "  generic (";
-   	push @data, "    VCPr        : integer range 0  to ((2**16)-1);  -- MCM Bangalore";
+   	push @data, "    VCPr        : integer range 0  to ((2**16)-1);  -- Location name";
    	push @data, "    VCNum       : integer range 0  to ((2**16)-1);  -- (sub-module ID-number) => 16 bits";
    	push @data, "    VC_Ver_MSB  : integer range 0  to ((2**8)-1);   -- (sub-module release)   => 8 bits";
    	push @data, "    VC_Ver_LSB  : integer range 0  to ((2**8)-1);   -- (sub-module version)   => 8 bits";
